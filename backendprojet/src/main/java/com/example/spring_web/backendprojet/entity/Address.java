@@ -1,10 +1,19 @@
 
 package com.example.spring_web.backendprojet.entity;
 
+//import org.springframework.data.annotation.Id;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     private String street;
    
@@ -14,6 +23,16 @@ public class Address {
    
     private String zipCode;
     private String country;
+
+    public Address(String street, String city, String state, String zipCode, String country) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+
+    public Address(){}
 
     public String getZipCode() {
         return zipCode;

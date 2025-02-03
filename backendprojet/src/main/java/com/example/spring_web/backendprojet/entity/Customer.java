@@ -4,7 +4,11 @@ package com.example.spring_web.backendprojet.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -12,6 +16,10 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Customer {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private String email;
     private String phone;
@@ -19,8 +27,10 @@ public class Customer {
     @OneToOne
     private Address address;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Invoice> invoices = new HashSet<>();
+
+    public Customer(){}
 
     public String getName() {
         return name;
