@@ -1,12 +1,17 @@
 
 package com.example.spring_web.backendprojet.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+
 //import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Address {
@@ -21,8 +26,14 @@ public class Address {
   
     private String state;
    
+    @Column( unique = true )
     private String zipCode;
+    
     private String country;
+
+    @OneToOne(mappedBy = "address")
+    @JsonIgnore
+    private Customer customer;
 
     public Address(String street, String city, String state, String zipCode, String country) {
         this.street = street;
