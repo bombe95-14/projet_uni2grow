@@ -6,8 +6,13 @@ import java.util.List;
 public class CreateAndUpdateInvoiceDto {
     
     private String invoiceNumber;
-    private double totalAmount;
-    private CreateAndUpdateCustomerDto createAndUpdateCustomerDto;
+    private Double totalAmount;
+    private Long idCustomer;
+    private Long idAddress;
+    private Long idInvoice;
+
+   // private CreateAndUpdateCustomerDto createAndUpdateCustomerDto;
+
 
     private List<InvoiceItemDto> invoiceItemDtos = new ArrayList<>();
 
@@ -15,7 +20,7 @@ public class CreateAndUpdateInvoiceDto {
         return invoiceItemDtos;
     }
 
-    public double getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
@@ -23,8 +28,20 @@ public class CreateAndUpdateInvoiceDto {
         return invoiceNumber;
     }
 
-    public CreateAndUpdateCustomerDto getCreateAndUpdateCustomerDto() {
-        return createAndUpdateCustomerDto;
+    public Long getIdAddress() {
+        return idAddress;
     }
+
+    public Long getIdCustomer() {
+        return idCustomer;
+    }
+    
+    public Long getIdInvoice() {
+        return idInvoice;
+    }
+
+/*     public CreateAndUpdateCustomerDto getCreateAndUpdateCustomerDto() {
+        return createAndUpdateCustomerDto;
+    } */
 
 }

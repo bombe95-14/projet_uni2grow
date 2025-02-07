@@ -1,8 +1,11 @@
 
 package com.example.spring_web.backendprojet.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,25 +24,46 @@ public class Invoice {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idInvoice;
+
+    public Long getIdInvoice() {
+        return idInvoice;
+    }
 
     private String invoiceNumber;
     private double totalAmount;
 
-    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
+    @ManyToOne( )
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
 
-    @ManyToOne(targetEntity = Address.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "adress_id")
+    @ManyToOne( )
+    @JoinColumn(name = "address_id")
     @JsonIgnore
     private Address address;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<InvoiceItem> invoiceItems = new HashSet<>();
+    @OneToMany( fetch = FetchType.EAGER, mappedBy = "invoice", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
     public Invoice() {
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public double getTotalAmount() {
@@ -58,8 +82,13 @@ public class Invoice {
         this.invoiceNumber = invoiceNumber;
     }
 
-//   -  billingAddress : an Address  object representing the billing address associated with the invoice 
+    public List<InvoiceItem> getInvoiceItems() {
+        return invoiceItems;
+    }
 
+    public void setInvoiceItems(List<InvoiceItem> invoiceItems) {
+        this.invoiceItems = invoiceItems;
+    }
 
 
 }

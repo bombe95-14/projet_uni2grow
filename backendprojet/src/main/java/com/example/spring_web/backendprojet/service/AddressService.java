@@ -52,7 +52,8 @@ public class AddressService implements GlobalServiceCrud<Address>  {
     @Override
     public List<Address> getAllElement() {
         // TODO Auto-generated method stub
-        return addressRepository.findAll();
+        List<Address> addresses =  addressRepository.findAll();
+        return addresses;
     }
 
     public Optional<Address> findByZipCode( String zipCode ) {

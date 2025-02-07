@@ -1,6 +1,6 @@
 package com.example.spring_web.backendprojet.dto.bodyrequest;
 
-public class InvoiceItemDto {
+public class  InvoiceItemDto {
     
     private String name;
     private int quantity;

@@ -1,14 +1,20 @@
 package com.example.spring_web.backendprojet.traitement;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import com.example.spring_web.backendprojet.dto.bodyrequest.AddressFilter;
 import com.example.spring_web.backendprojet.dto.bodyrequest.CreateAndUpdateAddressDto;
 import com.example.spring_web.backendprojet.dto.bodyrequest.CreateAndUpdateCustomerDto;
+import com.example.spring_web.backendprojet.dto.bodyrequest.CustomerFilter;
+import com.example.spring_web.backendprojet.dto.bodyrequest.InvoiceFilter;
 import com.example.spring_web.backendprojet.entity.Address;
 import com.example.spring_web.backendprojet.entity.Customer;
 import com.example.spring_web.backendprojet.service.AddressService;
@@ -176,4 +182,36 @@ public class CustomerTraitement {
         return ResponseEntity.ok( " this customer has been deleted " );
 
     }
+
+    public ResponseEntity<?> getCustomerFiltering( CustomerFilter customerFilter ){
+
+        List<Customer> customers = customerService.getAllElement();
+        
+        if ( Objects.nonNull( customerFilter.getName() ) && !customerFilter.getName().isEmpty() && !customerFilter.getName().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getName().contains( customerFilter.getName() ) ).collect(Collectors.toList());
+        }
+
+        if ( Objects.nonNull( customerFilter.getPhone() ) && !customerFilter.getPhone().isEmpty() && !customerFilter.getPhone().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getPhone().contains( customerFilter.getPhone() ) ).collect(Collectors.toList());
+        }
+
+        if ( Objects.nonNull( customerFilter.getEmail() ) && !customerFilter.getEmail().isEmpty() && !customerFilter.getEmail().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getEmail().contains( customerFilter.getEmail() ) ).collect(Collectors.toList());
+        }
+
+        if ( Objects.nonNull( customerFilter.getCountry() ) && !customerFilter.getCountry().isEmpty() && !customerFilter.getCountry().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getAddress().getCountry().contains( customerFilter.getCountry() ) ).collect(Collectors.toList());
+        }
+
+        if ( Objects.nonNull( customerFilter.getStreet() ) && !customerFilter.getStreet().isEmpty() && !customerFilter.getStreet().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getAddress().getStreet().contains( customerFilter.getStreet() ) ).collect(Collectors.toList());
+        }
+
+        if ( Objects.nonNull( customerFilter.getState() ) && !customerFilter.getState().isEmpty() && !customerFilter.getState().isBlank() ) {
+            customers = customers.stream().filter( customer -> customer.getAddress().getState().contains( customerFilter.getState() ) ).collect(Collectors.toList());
+        }
+
+       return ResponseEntity.ok( customers );
+    }
+
 }

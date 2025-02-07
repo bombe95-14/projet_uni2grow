@@ -20,7 +20,13 @@ public class Customer {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name = "customer_id" )
     private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
 
     private String name;
 
@@ -31,11 +37,11 @@ public class Customer {
     private String phone;
 
     @OneToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id")
     private Address address;   
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Invoice> invoices = new HashSet<>();
 
     public Customer(){}

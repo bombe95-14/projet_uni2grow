@@ -1,0 +1,32 @@
+<p-toast />
+
+<p-dialog header="Search address" [modal]="true" [(visible)]="visible" [style]="{ width: '35%' }" (onHide)="closeDialog()">
+
+  <form [formGroup]="addressFilterFrom">
+
+    <table style="width: 80%; margin: 1em auto;">
+        <tr>
+            <td> <label for="city"> City </label> </td>
+            <td> <input type="text" formControlName="city" id="city"> </td>
+        </tr> <br>
+
+        <tr>
+            <td> <label for="country"> Country </label> </td>
+            <td> <input type="text" formControlName="country" id="country"> </td>
+        </tr><br>
+
+        <tr>
+            <td> <label for="zipCode">Zip Code</label> </td>
+            <td> <input type="text" formControlName="zipCode" id="zipCode"> </td>
+        </tr><br>
+
+        <tr>
+            <td> <input type="button" value="Save" (click)="sendDataToServer()"> </td>
+            <td> <input type="button" value="Cancel" (click)="closeDialog()" > </td>
+        </tr><br>
+    </table>
+
+  </form>
+
+
+</p-dialog>

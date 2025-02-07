@@ -1,0 +1,39 @@
+<p-toast />
+<p-dialog [header]="titleWindow" [modal]="true" [(visible)]="visible" [style]="{ width: '35%' }" (onHide)="closeWindow()">
+
+  <form [formGroup]="customerFrom"  >
+
+    <div style=" display: flex; justify-content: space-between; padding: 2em; " >
+        <p-fieldset legend="Information sur le client" >
+          <table>
+          <tr>
+            <td> <label for="firstname">Street </label> </td>
+            <td> : <input type="text" formControlName="name" id="firstname"> </td>
+          </tr> <br>
+
+          <tr>
+            <td> <label for="lastname">City </label> </td>
+            <td> : <input type="email"  formControlName="email" id="lastname"> </td>
+          </tr> <br>
+
+          <tr>
+            <td> <label for="username">State </label> </td>
+            <td> : <input type="text" formControlName="state" id="username"> </td>
+          </tr><br>
+          </table>
+        </p-fieldset>
+
+      <p-fieldset legend="Adresse du client " >
+
+      </p-fieldset>
+    </div>
+
+
+    <div>
+
+    </div>
+</form>
+
+</p-dialog>
+
+

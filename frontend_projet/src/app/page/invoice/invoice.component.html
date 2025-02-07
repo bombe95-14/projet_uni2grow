@@ -1,0 +1,64 @@
+
+
+
+<div style=" width: 60%;  margin:  auto!important;" >
+
+  <div class="card" style=" margin-bottom: 2em; " >
+    <p-toolbar>
+        <div class="p-toolbar-group-start">
+            <p-button icon="pi pi-plus" label="Add address" class="mr-100" (onClick)="addOrUpdateOneInvoice('add')" /> &nbsp;  &nbsp;
+            <p-button icon="pi pi-print" label="Update address" class="mr-2" (onClick)="addOrUpdateOneInvoice('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-upload" label="Delete address" (onClick)="deleteOneInvoice()"/>
+        </div>
+
+        <div class="p-toolbar-group-end">
+                     <p-button icon="pi pi-upload" label="Filter" (onClick)="displayFormFilter()"/>
+        </div>
+    </p-toolbar>
+  </div>
+
+  <div>
+    <p-table
+    [value]="invoices"
+    selectionMode="single"
+    [(selection)]="selectedElement"
+    styleClass="p-datatable-gridlines"
+    [resizableColumns]="true"
+    [reorderableColumns]="true"
+    dataKey="id"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+
+    [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox />
+              </th>
+
+              <th *ngFor="let item of keyListElement" > {{item}} </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr >
+              <td>
+                <p-tableCheckbox [value]="product" />
+              </td>
+
+              <td *ngFor="let item of keyListElement" >{{ product[item] }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+    </p>
+  </div>
+
+</div>

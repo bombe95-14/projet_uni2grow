@@ -1,0 +1,18 @@
+
+<p-table
+[value]="elements"
+selectionMode="single"
+[(selection)]="selectedElement"
+dataKey="id"
+[tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let item of keyListElement" > {{item}} </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr [pSelectableRow]="product">
+            <td *ngFor="let item of keyListElement" >{{ product[item] }}</td>
+        </tr>
+    </ng-template>
+</p-table>

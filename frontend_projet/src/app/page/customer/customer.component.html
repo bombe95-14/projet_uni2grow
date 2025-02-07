@@ -1,0 +1,70 @@
+
+
+<div style=" width: 60%;  margin:  auto!important;" >
+
+  <div class="card" style=" margin-bottom: 2em; " >
+    <p-toolbar>
+        <div class="p-toolbar-group-start">
+            <p-button icon="pi pi-plus" label="Add customer" class="mr-100" (onClick)="addOrUpdateOneCustomer('add')" /> &nbsp;  &nbsp;
+            <p-button icon="pi pi-print" label="Update customer" class="mr-2" (onClick)="addOrUpdateOneCustomer('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-upload" label="Delete customer" (onClick)="deleteOneCustomer()"/>
+        </div>
+
+        <div class="p-toolbar-group-end">
+                     <p-button icon="pi pi-upload" label="Filter" (onClick)="displayFormFilter()"/>
+        </div>
+    </p-toolbar>
+  </div>
+
+  <div>
+    <p-table
+    [value]="customers"
+    selectionMode="single"
+    [(selection)]="selectedElement"
+    styleClass="p-datatable-gridlines"
+    [resizableColumns]="true"
+    [reorderableColumns]="true"
+    dataKey="id"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+
+    [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox />
+              </th>
+
+              <th *ngFor="let item of keyListElement" > {{item}} </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr >
+              <td>
+                <p-tableCheckbox [value]="product" />
+              </td>
+
+              <td *ngFor="let item of keyListElement" >{{ product[item] }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <app-create-and-update-customer  [(visible)]="displayDialogCreateAndUpdate" *ngIf="displayDialogCreateAndUpdate"
+         [titleWindow]="titleFormAddAndUpdate"
+         [customer]="selectedElement.length>0 ? selectedElement[0] : null"
+      ></app-create-and-update-customer>
+
+    <app-filter-customer [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-customer>
+
+    <p>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+        <button type="button"></button>
+    </p>
+  </div>
+
+</div>

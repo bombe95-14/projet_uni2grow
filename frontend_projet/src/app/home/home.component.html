@@ -1,0 +1,40 @@
+    <p-splitter [style]="{ height: '100vh' }"     [panelSizes]="[15, 75]"     styleClass="mb-5">
+      <ng-template pTemplate>
+          <div class="card flex justify-content-center">
+            <p-menu [model]="items">
+                <ng-template pTemplate="item" let-item>
+                    <ng-container *ngIf="item.route; else elseBlock">
+                        <a [routerLink]="item.route" class="p-menuitem-link" style=" display: block; margin: 1em; padding: .3em;" >
+                            <span [class]="item.icon"></span>
+                            <span class="ml-2">{{ item.label }}</span>
+                        </a>
+                    </ng-container>
+                    <ng-template #elseBlock>
+                        <a [href]="item.url"  class="p-menuitem-link" style=" display: block; margin: 1em; padding: .3em;" >
+                            <span [class]="item.icon"></span>
+                            <span class="ml-2">{{ item.label }}</span>
+                        </a>
+                    </ng-template>
+                </ng-template>
+            </p-menu>
+         </div>
+
+
+         <!-- <div class="card flex justify-content-center">
+            <p-toast />
+            <p-menu [model]="items" />
+          </div> -->
+      </ng-template>
+      <ng-template pTemplate>
+          <div class="col flex align-items-center justify-content-center mt-4" >
+
+            <app-address *ngIf="itemActivatedCurrent=='ADDRESS' " >iouiureoiu reiufre  eeerer erere</app-address>
+
+            <app-customer *ngIf="itemActivatedCurrent=='CUSTOMER' " ></app-customer>
+
+            <app-invoice *ngIf="itemActivatedCurrent=='INVOICE' " ></app-invoice>
+
+          </div>
+      </ng-template>
+  </p-splitter>
+

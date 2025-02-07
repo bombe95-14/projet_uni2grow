@@ -1,0 +1,43 @@
+
+<p-toast />
+<p-dialog [header]="titleWindow" [modal]="true" [(visible)]="visible" [style]="{ width: '35%' }" (onHide)="closeWindow()">
+
+  <form [formGroup]="addressFrom"  >
+
+    <table style="width: 80%; margin: 1em auto;" >
+        <tr>
+            <td> <label for="firstname">Street </label> </td>
+            <td> : <input type="text" formControlName="street" id="firstname"> </td>
+        </tr> <br>
+
+        <tr>
+          <td> <label for="lastname">City </label> </td>
+          <td> : <input type="text"  formControlName="city" id="lastname"> </td>
+        </tr> <br>
+
+        <tr>
+          <td> <label for="username">State </label> </td>
+          <td> : <input type="text" formControlName="state" id="username"> </td>
+        </tr><br>
+
+        <tr>
+          <td> <label for="zipCode">Zip Code </label> </td>
+          <td> : <input type="text" formControlName="zipCode" id="zipCode"> </td>
+        </tr><br>
+
+        <tr>
+          <td> <label for="country">Country </label> </td>
+          <td> : <input type="text" formControlName="country" id="country"> </td>
+        </tr><br>
+
+        <tr>
+            <td > <button type="button" (click)="sendData()" [disabled]=" addressFrom.status!='VALID' " > Save </button> </td>
+            <td > <button type="button" (click)="closeWindow()" [disabled]=" addressFrom.status!='VALID' " > Cancel </button> </td>
+        </tr>
+    </table>
+
+</form>
+
+</p-dialog>
+
+

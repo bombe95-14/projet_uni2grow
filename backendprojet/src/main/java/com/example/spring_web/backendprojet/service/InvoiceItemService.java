@@ -15,15 +15,15 @@ public class InvoiceItemService implements GlobalServiceCrud<InvoiceItem> {
     private InvoiceItemRepository invoiceItemRepository;
 
     @Override
-    public InvoiceItem save(InvoiceItem k) {
+    public InvoiceItem save(InvoiceItem invoiceItem) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return invoiceItemRepository.save(invoiceItem);
     }
 
     @Override
-    public void delete(InvoiceItem k) {
+    public void delete(InvoiceItem invoiceItem) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        invoiceItemRepository.delete(invoiceItem);
     }
 
     @Override
@@ -33,15 +33,15 @@ public class InvoiceItemService implements GlobalServiceCrud<InvoiceItem> {
     }
 
     @Override
-    public List<InvoiceItem> saveAll(List<InvoiceItem> k) {
+    public List<InvoiceItem> saveAll(List<InvoiceItem> invoiceItems) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
+        return invoiceItemRepository.saveAll(invoiceItems);
     }
 
     @Override
     public Optional<InvoiceItem> findById(Long identifier) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return invoiceItemRepository.findById(identifier);
     }
 
     public void emptyTableAddress() {

@@ -109,5 +109,22 @@ public class AddressTraitement {
        return ResponseEntity.ok( addresses );
     }
 
+    public ResponseEntity<?> getAddressesFiltering( AddressFilter addressFilter ){
+        
+        List<Address> addresses = addressService.getAllElement();
+        if ( Objects.nonNull( addressFilter.getCity() ) && !addressFilter.getCity().isEmpty() && !addressFilter.getCity().isBlank() ) {
+            addresses = addresses.stream().filter( address -> address.getCity().toUpperCase().contains( addressFilter.getCity().trim().toUpperCase() ) ).toList();
+        }
+
+        if ( Objects.nonNull( addressFilter.getCountry() ) && !addressFilter.getCountry().isEmpty() && !addressFilter.getCountry().isBlank() ) {
+            addresses = addresses.stream().filter( address -> address.getCountry().toUpperCase().contains( addressFilter.getCountry().trim().toUpperCase() ) ).toList();
+        }
+
+        if ( Objects.nonNull( addressFilter.getZipCode() ) && !addressFilter.getZipCode().isEmpty() && !addressFilter.getZipCode().isBlank() ) {
+            addresses = addresses.stream().filter( address -> address.getZipCode().toUpperCase().contains( addressFilter.getZipCode().trim().toUpperCase() ) ).toList();   
+        }
+
+       return ResponseEntity.ok( addresses );
+    }
    
 }

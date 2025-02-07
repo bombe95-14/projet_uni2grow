@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.example.spring_web.backendprojet.entity.Address;
 import com.example.spring_web.backendprojet.entity.Invoice;
 import com.example.spring_web.backendprojet.repository.InvoiceRepository;
 
@@ -47,6 +49,17 @@ public class InvoiceService implements GlobalServiceCrud<Invoice> {
     @Override
     public List<Invoice> getAllElement() {
         // TODO Auto-generated method stub
-        return invoiceRepository.findAll();
+        List<Invoice> invoices = invoiceRepository.findAll();
+        System.out.println( "longueur  est de   " + invoices.get(0).getInvoiceItems().size() );
+        return invoices;
+    }
+
+     public List<Invoice> getAddressesWithPagination( int pageNumber, int pageSize ) {
+        // TODO Auto-generated method stub
+        return (List<Invoice>) invoiceRepository.findAll( PageRequest.of(pageNumber, pageSize) ).getContent();
+    }
+
+    public long countInvoices(){
+        return invoiceRepository.count();
     }
 }
