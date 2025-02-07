@@ -65,4 +65,12 @@ export class InvoiceComponent implements OnInit{
       }
    } )
   }
+
+  resultOperationsFilter( event : any ){
+    this.invoices = event.data.body;
+    console.log('filter\n');
+    console.log(this.invoices);
+    console.log('filter\n');
+}
+
 }

@@ -6,9 +6,9 @@
   <div class="card" style=" margin-bottom: 2em; " >
     <p-toolbar>
         <div class="p-toolbar-group-start">
-            <p-button icon="pi pi-plus" label="Add address" class="mr-100" (onClick)="addOrUpdateOneInvoice('add')" /> &nbsp;  &nbsp;
-            <p-button icon="pi pi-print" label="Update address" class="mr-2" (onClick)="addOrUpdateOneInvoice('update')"/> &nbsp;  &nbsp;
-            <p-button icon="pi pi-upload" label="Delete address" (onClick)="deleteOneInvoice()"/>
+            <p-button icon="pi pi-plus" label="Add invoice" class="mr-100" (onClick)="addOrUpdateOneInvoice('add')" /> &nbsp;  &nbsp;
+            <p-button icon="pi pi-print" label="Update invoice" class="mr-2" (onClick)="addOrUpdateOneInvoice('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-upload" label="Delete invoice" (onClick)="deleteOneInvoice()"/>
         </div>
 
         <div class="p-toolbar-group-end">
@@ -52,13 +52,8 @@
         </ng-template>
     </p-table>
 
-    <p>
-        <button type="button"></button>
-        <button type="button"></button>
-        <button type="button"></button>
-        <button type="button"></button>
-        <button type="button"></button>
-    </p>
+    <app-filter-invoice [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-invoice>
+
   </div>
 
 </div>

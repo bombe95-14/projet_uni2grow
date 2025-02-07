@@ -8,9 +8,9 @@
   <div class="card" style=" margin-bottom: 2em; " >
     <p-toolbar>
         <div class="p-toolbar-group-start">
-            <p-button icon="pi pi-plus" label="Add customer" class="mr-100" (onClick)="addOrUpdateOneCustomer('add')" /> &nbsp;  &nbsp;
-            <p-button icon="pi pi-print" label="Update customer" class="mr-2" (onClick)="addOrUpdateOneCustomer('update')"/> &nbsp;  &nbsp;
-            <p-button icon="pi pi-upload" label="Delete customer" (onClick)="deleteOneCustomer()"/>
+            <p-button icon="pi pi-plus" label="Add customer" class="mr-100"  (onClick)="addOrUpdateOneCustomer('add')" /> &nbsp;  &nbsp;
+            <p-button icon="pi pi-print" label="Update customer" class="mr-2" [disabled]="!enaledUpdateButton" (onClick)="addOrUpdateOneCustomer('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-upload" label="Delete customer" [disabled]="!enabledDeleteButton" (onClick)="deleteOneCustomer()"/>
         </div>
 
         <div class="p-toolbar-group-end">
