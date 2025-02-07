@@ -10,8 +10,8 @@
     <p-toolbar>
         <div class="p-toolbar-group-start">
             <p-button icon="pi pi-plus" label="Add address" class="mr-100" (onClick)="addOrUpdateOneAdress('add')" /> &nbsp;  &nbsp;
-            <p-button icon="pi pi-print" label="Update address" class="mr-2" (onClick)="addOrUpdateOneAdress('update')"/> &nbsp;  &nbsp;
-            <p-button icon="pi pi-upload" label="Delete address" (onClick)="deleteOneAddress($event)"/>
+            <p-button icon="pi pi-print" label="Update address" [disabled]="!enaledUpdateButton" class="mr-2" (onClick)="addOrUpdateOneAdress('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-upload" label="Delete address" [disabled]="!enabledDeleteButton" (onClick)="deleteOneAddress($event)"/>
         </div>
 
         <div class="p-toolbar-group-end">
@@ -66,7 +66,9 @@
 
   <app-create-and-update-address [titleWindow]="titleFormAddAndUpdate"
               [address]="selectedElement.length>0 ? selectedElement[0] : null"
-              [(visible)]="displayDialogCreateAndUpdate" *ngIf="displayDialogCreateAndUpdate">
+              [(visible)]="displayDialogCreateAndUpdate"
+              *ngIf="displayDialogCreateAndUpdate"
+              (infoFormApiServer)="resultOperationsCreateAndUpdate($event)" >
 
   </app-create-and-update-address>
 

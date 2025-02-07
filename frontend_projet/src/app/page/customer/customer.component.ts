@@ -21,6 +21,9 @@ export class CustomerComponent implements OnInit {
   displayDialogFilter : boolean = false;
   displayDialogDelete : boolean = false;
 
+  enaledUpdateButton : boolean = false;
+  enabledDeleteButton : boolean = false;
+
   constructor( private customerService : CustomerService, private confirmationService : ConfirmationService, private messageService : MessageService  ){}
 
   ngOnInit(): void {
@@ -28,18 +31,23 @@ export class CustomerComponent implements OnInit {
      this.selectedElement = []
      this.displayDialogCreateAndUpdate = false
      this.displayDialogFilter = false;
+
+     this.enabledDeleteButton = false;
+     this.enaledUpdateButton = false;
   }
 
   onRowSelect(event: any) {
     this.selectedElement = [event.data]
-    console.log(this.selectedElement);
 
+     this.enabledDeleteButton = true;
+     this.enaledUpdateButton = true;
   }
 
   onRowUnselect(event: any) {
     this.selectedElement = [];
-    console.log(this.selectedElement);
 
+    this.enabledDeleteButton = false;
+    this.enaledUpdateButton = false;
   }
 
   displayFormFilter(){
@@ -58,6 +66,7 @@ export class CustomerComponent implements OnInit {
         this.customerService.deleteOneElement( this.selectedElement[0].id ).subscribe({
           next: (value) => {
             this.getCustomers();
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
 
           }, error(err) {
 
@@ -88,7 +97,7 @@ export class CustomerComponent implements OnInit {
           this.customers = value;
 
           if (this.customers.length > 0) {
-            this.keyListElement = Object.keys(this.customers[0]);
+            this.keyListElement = Object.keys(this.customers[0]).filter( (element) => element!=="idAdress" );
           } else {
             this.keyListElement = [];
           }
@@ -97,12 +106,30 @@ export class CustomerComponent implements OnInit {
     } )
   }
 
+  resultOperationsCreateAndUpdate(event:any){
+    const message = event.data.body;
+    this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
+
+      if (message === "update success") {
+        this.closeAllDialogAndDisabledButton()
+        this.getCustomers()
+
+      }
+  }
 
   resultOperationsFilter( event : any ){
-    this.customers = event.data;
+    this.customers = event.data.body;
     console.log('filter\n');
     console.log(this.customers);
     console.log('filter\n');
 }
 
+closeAllDialogAndDisabledButton(){
+  this.enabledDeleteButton = false;
+  this.enaledUpdateButton = false;
+  this.displayDialogCreateAndUpdate = false
+  this.selectedElement = []
+  this.displayDialogFilter = false
+
+}
 }

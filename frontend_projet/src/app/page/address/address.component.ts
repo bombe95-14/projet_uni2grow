@@ -40,7 +40,8 @@ export class AddressComponent implements OnInit, OnDestroy {
     this.titleFormAddAndUpdate = "";
     this.displayDialogCreateAndUpdate = false;
     this.displayDialogFilter = false
-
+    this.enabledDeleteButton = false;
+    this.enaledUpdateButton = false;
 
   }
 
@@ -89,7 +90,7 @@ export class AddressComponent implements OnInit, OnDestroy {
         this.addressService.deleteOneElement( this.selectedElement[0].id ).subscribe({
           next: (value) => {
 
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
             this.getAddresses();
 
           }, error(err) {
@@ -148,7 +149,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   }
 
   resultOperationsFilter( event : any ){
-      this.addresses = event.data;
+      this.addresses = event.data.body;
       this.closeAllDialogAndDisabledButton()
       console.log('filter\n');
       console.log(this.addresses);
@@ -156,7 +157,14 @@ export class AddressComponent implements OnInit, OnDestroy {
   }
 
   resultOperationsCreateAndUpdate(event:any){
+    const message = event.data.body;
+    this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
 
+      if (message === "update success") {
+        this.closeAllDialogAndDisabledButton()
+        this.getAddresses()
+
+      }
   }
 
 }

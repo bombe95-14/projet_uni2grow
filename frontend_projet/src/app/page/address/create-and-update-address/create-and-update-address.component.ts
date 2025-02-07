@@ -20,6 +20,7 @@ export class CreateAndUpdateAddressComponent implements OnInit {
   @Input() visible : boolean = false;
 
   @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() infoFormApiServer = new EventEmitter<any>();
 
   constructor( private addressService : AddressService, private confirmationService : ConfirmationService, private messageService : MessageService  ){}
 
@@ -55,7 +56,12 @@ export class CreateAndUpdateAddressComponent implements OnInit {
         next: (value) => {
                 this.visible=false
                 this.visibleChange.emit(this.visible)
-               this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+               this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
+               this.infoFormApiServer.emit(
+                {
+                  data : "create success"
+                }
+               )
         }, error : (err) => {
 
           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
@@ -68,13 +74,18 @@ export class CreateAndUpdateAddressComponent implements OnInit {
         next: (value) => {
           this.visible=false
           this.visibleChange.emit(this.visible)
-         this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+         this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Operation successfully completed', life: 3000 });
+         this.infoFormApiServer.emit(
+          {
+            data : "update success"
+          }
+         )
        }, error : (err) => {
 
           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
 
         },
-      } );   
+      } );
     }
 
   }

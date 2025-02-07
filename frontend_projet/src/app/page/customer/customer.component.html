@@ -1,5 +1,8 @@
 
 
+<p-toast />
+<p-confirmDialog />
+
 <div style=" width: 60%;  margin:  auto!important;" >
 
   <div class="card" style=" margin-bottom: 2em; " >
@@ -51,9 +54,11 @@
         </ng-template>
     </p-table>
 
-    <app-create-and-update-customer  [(visible)]="displayDialogCreateAndUpdate" *ngIf="displayDialogCreateAndUpdate"
+    <app-create-and-update-customer  [(visible)]="displayDialogCreateAndUpdate"
+         *ngIf="displayDialogCreateAndUpdate"
          [titleWindow]="titleFormAddAndUpdate"
          [customer]="selectedElement.length>0 ? selectedElement[0] : null"
+         (infoFormApiServer)="resultOperationsCreateAndUpdate($event)"
       ></app-create-and-update-customer>
 
     <app-filter-customer [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-customer>

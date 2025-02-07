@@ -38,10 +38,9 @@ export class FilterAddressComponent implements OnInit {
               data : value,
               message : "success"
             }
-           )        }, error(err) {
-            console.log('====================================');
+           )
+          }, error(err) {
             console.log(err);
-            console.log('====================================');
         },
       })
   }
