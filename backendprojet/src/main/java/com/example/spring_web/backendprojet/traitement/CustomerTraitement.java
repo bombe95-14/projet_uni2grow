@@ -15,6 +15,7 @@ import com.example.spring_web.backendprojet.dto.bodyrequest.CreateAndUpdateAddre
 import com.example.spring_web.backendprojet.dto.bodyrequest.CreateAndUpdateCustomerDto;
 import com.example.spring_web.backendprojet.dto.bodyrequest.CustomerFilter;
 import com.example.spring_web.backendprojet.dto.bodyrequest.InvoiceFilter;
+import com.example.spring_web.backendprojet.dto.response.CustomerReponseDto;
 import com.example.spring_web.backendprojet.entity.Address;
 import com.example.spring_web.backendprojet.entity.Customer;
 import com.example.spring_web.backendprojet.service.AddressService;
@@ -30,7 +31,9 @@ public class CustomerTraitement {
     private AddressService addressService;
 
     public ResponseEntity<?> getAllCustomers(){
-        return ResponseEntity.ok( customerService.getAllElement() );
+        return ResponseEntity.ok( 
+            customerService.getAllElement().stream().map( customer -> new CustomerReponseDto( customer ) ).collect(Collectors.toList()) 
+            );
     }
 
     public ResponseEntity<?> getCustomersWithPagination( int pageNumber, int size ){

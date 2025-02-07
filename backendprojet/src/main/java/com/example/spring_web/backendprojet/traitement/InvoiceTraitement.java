@@ -111,8 +111,8 @@ public class InvoiceTraitement {
                     invoiceItemService.save(element);
                 }
              );
-          //  List<InvoiceItem> invoiceItems = invoiceItemService.saveAll( invoiceItemSave );
-            return ResponseEntity
+
+             return ResponseEntity
                    .status(201)
                    .body( invoice );
        } else {
@@ -149,17 +149,23 @@ public class InvoiceTraitement {
             return ResponseEntity.badRequest().body("Invoice not found");
         }
 
-       Invoice invoiceSave = new Invoice(); 
        if ( createAndUpdateInvoiceDto.getInvoiceItemDtos().size()>0       ) {
-        
+
             List<InvoiceItem> invoiceItemSave = new ArrayList<>();
             createAndUpdateInvoiceDto.getInvoiceItemDtos().forEach( invoiceItemDto -> invoiceItemSave.add( new InvoiceItem( invoiceItemDto )) );
 
-            List<InvoiceItem> invoiceItems = invoiceItemService.saveAll( invoiceItemSave );
-            invoiceSave.setTotalAmount( createAndUpdateInvoiceDto.getTotalAmount() );
-            invoiceSave.setInvoiceNumber( UUID.randomUUID().toString() );
-            invoiceSave.setInvoiceItems( invoiceItems );
-            Invoice invoice = invoiceService.save( invoiceSave );  
+            invoiceOptional.get().setTotalAmount( createAndUpdateInvoiceDto.getTotalAmount() );
+           invoiceOptional.get().setAddress(addressOptional.get());
+           invoiceOptional.get().setCustomer( customerOptional.get() );
+            Invoice invoice = invoiceService.save( invoiceOptional.get() );  
+
+            invoiceItemSave.forEach( 
+                element -> {
+                    element.setInvoice(invoice);
+                    invoiceItemService.save(element);
+                }
+             );
+
 
             return ResponseEntity
                    .status(201)

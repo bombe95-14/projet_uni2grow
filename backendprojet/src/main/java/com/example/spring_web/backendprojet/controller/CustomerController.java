@@ -3,6 +3,7 @@ package com.example.spring_web.backendprojet.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,7 @@ public class CustomerController {
         return customerTraitement.updateOneCustomer(createAndUpdateCustomerDto);
     }
 
-    @PostMapping("/delete/{idCustomer}")
+    @DeleteMapping("/delete/{idCustomer}")
     @CrossOrigin( origins = "http://localhost:4200", methods = RequestMethod.DELETE )
     public ResponseEntity<?> deleteOneCustomer( @PathVariable("idCustomer") Long idCustomer) {
         return customerTraitement.deleteOneCustomer(idCustomer);
