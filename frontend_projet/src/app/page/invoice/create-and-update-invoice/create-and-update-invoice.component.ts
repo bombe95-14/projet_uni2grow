@@ -24,7 +24,7 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
     displayInvoiceItemDialog : boolean = false;
 
       @Input() titleWindow : string = "";
-      @Input() customer : any;
+      @Input() invoice : any;
       @Input() visible : boolean = false;
 
       @Output() visibleChange = new EventEmitter<boolean>();
@@ -45,6 +45,13 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
 
       })
 
+      this.invoiceItemForm = new FormGroup({
+        name : new FormControl( null, [ Validators.required ] ),
+        quantity : new FormControl( null, [ Validators.required ] ),
+        price : new FormControl( null, [ Validators.required ] ),
+        total : new FormControl( null, [ Validators.required ] ),
+      })
+
   }
 
   closeWindow(){
@@ -55,7 +62,10 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
   sendData(){
 
     let bodyRequest = {
-
+      totalAmount : this.invoiceForm.get('totalAmount')?.value,
+      idCustomer : this.invoiceForm.get('idCustomer')?.value,
+      idAddress : this.invoiceForm.get('idAddress')?.value,
+      invoiceItemDtos : this.invoiceItemsOfTable,
     }
 
     if ( this.titleWindow==="Create an customer" ) {
@@ -76,7 +86,7 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
         },
       } );
     }  else {
-      this.invoiceService.update( {...bodyRequest, idInvoice : this.customer.id } ).subscribe( {
+      this.invoiceService.update( {...bodyRequest, idInvoice : this.invoice.id } ).subscribe( {
         next: (value) => {
           this.visible=false
           this.visibleChange.emit(this.visible)
@@ -121,13 +131,6 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
   }
 
   displayDialogAddItem(){
-    this.invoiceItemForm = new FormGroup({
-      name : new FormControl( null, [ Validators.required ] ),
-      quantity : new FormControl( null, [ Validators.required ] ),
-      price : new FormControl( null, [ Validators.required ] ),
-      total : new FormControl( null, [ Validators.required ] ),
-    })
-
     this.displayInvoiceItemDialog = true;
   }
 
@@ -137,15 +140,7 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
   }
 
   addInvoiceItem(){
-    console.log('====================================');
-    console.log( this.invoiceItemForm.value );
-    console.log('====================================');
     this.invoiceItemsOfTable.push( this.invoiceItemForm.value )
-    this.invoiceItemsOfTable.forEach( (element) => {
-      console.log('list');
-      console.log( element );
-      console.log('list');
-    } )
     this.closeInvoiceItemDialog();
   }
 }
