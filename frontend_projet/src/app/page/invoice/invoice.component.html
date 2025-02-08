@@ -7,7 +7,7 @@
     <p-toolbar>
         <div class="p-toolbar-group-start">
             <p-button icon="pi pi-plus" label="Add invoice" class="mr-100" (onClick)="addOrUpdateOneInvoice('add')" /> &nbsp;  &nbsp;
-            <p-button icon="pi pi-print" label="Update invoice" class="mr-2" (onClick)="addOrUpdateOneInvoice('update')"/> &nbsp;  &nbsp;
+            <p-button icon="pi pi-print" disabled="true" label="Update invoice" class="mr-2" (onClick)="addOrUpdateOneInvoice('update')"/> &nbsp;  &nbsp;
             <p-button icon="pi pi-upload" label="Delete invoice" (onClick)="deleteOneInvoice()"/>
         </div>
 
@@ -54,7 +54,10 @@
 
 <!--     <app-filter-invoice [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-invoice>
  -->
-<app-create-and-update-invoice [(visible)]="displayDialogCreateAndUpdate" *ngIf="displayDialogCreateAndUpdate" ></app-create-and-update-invoice>
+<app-create-and-update-invoice [titleWindow]="titleFormAddAndUpdate"
+            [(visible)]="displayDialogCreateAndUpdate"
+            *ngIf="displayDialogCreateAndUpdate" >
+            </app-create-and-update-invoice>
   </div>
 
 </div>

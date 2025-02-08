@@ -68,7 +68,7 @@ export class CreateAndUpdateInvoiceComponent implements OnInit {
       invoiceItemDtos : this.invoiceItemsOfTable,
     }
 
-    if ( this.titleWindow==="Create an customer" ) {
+    if ( this.titleWindow==="Create an invoice" ) {
       this.invoiceService.save( bodyRequest ).subscribe( {
         next: (value) => {
                 this.visible=false
