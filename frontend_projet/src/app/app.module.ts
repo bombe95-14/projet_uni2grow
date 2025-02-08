@@ -29,7 +29,8 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FieldsetModule } from 'primeng/fieldset';
-
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,8 @@ import { FieldsetModule } from 'primeng/fieldset';
     DialogModule,
     ConfirmDialogModule,
     FieldsetModule,
+    InputTextModule,
+    DropdownModule,
     RouterModule.forRoot([ ])
   ],
   providers: [],

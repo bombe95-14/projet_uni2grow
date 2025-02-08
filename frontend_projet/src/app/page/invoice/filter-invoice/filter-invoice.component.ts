@@ -1,3 +1,6 @@
+
+import { AddressService } from 'src/service/AddressServiceService';
+import { CustomerService } from './../../../../service/customer-service.service';
 import { InvoiceService } from './../../../../service/invoice-service.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -11,14 +14,20 @@ export class FilterInvoiceComponent implements OnInit {
 
 
       invoiceFilterFrom : FormGroup = Object.create(null);
+      customers : any[] = [];
+      addresses : any[] = [];
+
       @Input() visible : boolean = false;
       @Output() visibleChange = new EventEmitter<boolean>();
 
       @Output() infoFormApiServer = new EventEmitter<any>();
 
-  constructor( private invoiceService : InvoiceService ) { }
+  constructor( private invoiceService : InvoiceService, private customerService : CustomerService, private addressService : AddressService ) { }
 
   ngOnInit(): void {
+
+    this.getAddresses();
+    this.getCustomers();
 
       this.invoiceFilterFrom = new FormGroup({
         invoiceNumber : new FormControl( null ),
@@ -50,4 +59,28 @@ export class FilterInvoiceComponent implements OnInit {
       this.visible = false
       this.visibleChange.emit( this.visible );
   }
+
+  getCustomers(){
+    this.customerService.getAllElement().subscribe( {
+
+      next : (value)=> {
+          this.customers = value;
+      },
+
+    } )
+  }
+
+  getAddresses(){
+    this.addressService.getAllElement().subscribe( {
+
+      next : (value) => {
+        this.addresses = value
+      }, error(err) {
+          console.log(err);
+
+      },
+
+    } )
+  }
+
 }

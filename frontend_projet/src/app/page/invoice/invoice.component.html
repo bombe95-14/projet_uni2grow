@@ -52,8 +52,9 @@
         </ng-template>
     </p-table>
 
-    <app-filter-invoice [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-invoice>
-
+<!--     <app-filter-invoice [(visible)]="displayDialogFilter" (infoFormApiServer)="resultOperationsFilter($event)"></app-filter-invoice>
+ -->
+<app-create-and-update-invoice [(visible)]="displayDialogCreateAndUpdate" *ngIf="displayDialogCreateAndUpdate" ></app-create-and-update-invoice>
   </div>
 
 </div>

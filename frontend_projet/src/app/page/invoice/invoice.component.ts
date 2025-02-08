@@ -20,27 +20,36 @@ export class InvoiceComponent implements OnInit{
   displayDialogDelete : boolean = false;
   displayPrintInvoice : boolean = false;
 
+  enaledUpdateButton : boolean = false;
+  enabledDeleteButton : boolean = false;
+
   constructor( private invoiceService : InvoiceService){}
 
   ngOnInit(): void {
     this.getInvoices();
     this.selectedElement = []
+    this.enabledDeleteButton = false;
+    this.enaledUpdateButton = false;
   }
 
 
   displayFormFilter(){
-
+      this.displayDialogFilter = true
   }
 
   onRowSelect(event: any) {
     this.selectedElement = [event.data]
     console.log(this.selectedElement);
+    this.enabledDeleteButton = true;
+    this.enaledUpdateButton = true;
 
   }
 
   onRowUnselect(event: any) {
     this.selectedElement = [];
     console.log(this.selectedElement);
+    this.enabledDeleteButton = false;
+    this.enaledUpdateButton = false;
 
   }
 
@@ -49,7 +58,7 @@ export class InvoiceComponent implements OnInit{
   }
 
   addOrUpdateOneInvoice( title : string ){
-
+      this.displayDialogCreateAndUpdate = true;
   }
 
   getInvoices(){
@@ -71,6 +80,15 @@ export class InvoiceComponent implements OnInit{
     console.log('filter\n');
     console.log(this.invoices);
     console.log('filter\n');
+}
+
+closeAllDialogAndDisabledButton(){
+  this.enabledDeleteButton = false;
+  this.enaledUpdateButton = false;
+  this.displayDialogCreateAndUpdate = false
+  this.selectedElement = []
+  this.displayDialogFilter = false
+
 }
 
 }

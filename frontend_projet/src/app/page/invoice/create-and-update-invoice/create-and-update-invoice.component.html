@@ -1,1 +1,129 @@
-<p>create-and-update-invoice works!</p>
+<p-toast />
+<p-dialog [header]="titleWindow" [modal]="true" [(visible)]="visible" [style]="{ width: '75%' }" (onHide)="closeWindow()">
+
+  <form [formGroup]="invoiceForm"  >
+
+    <div style=" display: flex; justify-content: space-between; padding: 2em; " >
+        <p-fieldset legend="Information sur le client" >
+          <table>
+              <tr>
+                <td> <label for="firstname">Total amount </label> </td>
+                <td> : <input type="number" pInputText formControlName="totalAmount" id="firstname"> </td>
+              </tr> <br>
+
+              <tr>
+                <td> <label for="lastname">Selected client </label> </td>
+                <td> :
+                      <p-dropdown
+                      formControlName="idCustomer"
+                      [options]="customers"
+                      optionLabel="name"
+                      optionValue="id"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a client" />
+                </td>
+              </tr> <br>
+
+              <tr>
+                <td> <label for="username">Selected address invoice </label> </td>
+                <td> :
+                    <p-dropdown
+                    formControlName="idAddress"
+                    [options]="addresses"
+                    optionLabel="zipCode"
+                    optionValue="id"
+                    [filter]="true"
+                    filterBy="zipCode"
+                    [showClear]="true"
+                    placeholder="Select a address" />
+                </td>
+              </tr><br>
+
+          </table>
+        </p-fieldset>
+
+      <p-fieldset legend="Items " >
+
+        <p-button label="Add invoice item" icon="pi pi-check" (onClick)="displayDialogAddItem()" /> <br>
+        <p-table
+        [value]="invoiceItemsOfTable"
+        styleClass="p-datatable-gridlines"
+        [resizableColumns]="true"
+        [reorderableColumns]="true"
+        dataKey="id"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+
+        [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th> <span> Name </span> </th>
+                  <th> <span> Quantity </span> </th>
+                  <th> <span> Price </span> </th>
+                  <th> <span> Total </span> </th>
+                  <th> <span> Delete item </span> </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr >
+                  <td> <span> {{product.name}} </span> </td>
+                  <td> <span> {{product.quantity}} </span> </td>
+                  <td> <span> {{product.price}} </span> </td>
+                  <td> <span> {{product.total}} </span> </td>
+                  <td></td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+
+      </p-fieldset>
+    </div>
+
+
+    <div id="create_custom_div_last" >
+       <p> <button type="button" (click)="sendData()" [disabled]=" invoiceForm.status!='VALID' && invoiceItemsOfTable.length<=0 " > Save </button> </p>
+        <p> <button type="button" (click)="closeWindow()"  > Cancel </button> </p>
+    </div>
+</form>
+
+</p-dialog>
+
+<p-dialog header="" [modal]="true" [(visible)]="displayInvoiceItemDialog" [style]="{ width: '40%' }" (onHide)="closeInvoiceItemDialog()">
+
+  <form [formGroup]="invoiceItemForm"  >
+
+          <table>
+              <tr>
+                <td> <label for="firstname">Name </label> </td>
+                <td> : <input type="text" pInputText formControlName="name" id="firstname"> </td>
+              </tr> <br>
+
+              <tr>
+                <td> <label for="lastname">Quantity </label> </td>
+                <td> : <input type="number" pInputText formControlName="quantity" id="firstname"> </td>
+
+              </tr> <br>
+
+              <tr>
+                <td> <label for="username">Price </label> </td>
+                <td> : <input type="number" pInputText formControlName="price" id="firstname"> </td>
+
+              </tr><br>
+
+              <tr>
+                <td> <label for="username">Total </label> </td>
+                <td> : <input type="number" pInputText formControlName="total" id="firstname"> </td>
+              </tr><br>
+
+          </table>
+          <div id="create_custom_div" >
+            <p> <button type="button" (click)="addInvoiceItem()" > Insert item </button> </p>
+             <p> <button type="button" (click)="closeInvoiceItemDialog()"  > Cancel </button> </p>
+         </div>
+
+</form>
+
+</p-dialog>
+

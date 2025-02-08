@@ -1,0 +1,10 @@
+
+
+
+
+#create_custom_div_last, #create_custom_div{
+  width: 80%;
+  margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
